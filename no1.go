@@ -5,79 +5,48 @@ import (
 	"math"
 )
 
-func Compare(a, b string) string {
+func primeX(number int) (prime int) {
 
-	// if len(a) < len(b){
-	// 	fmt.Println(a)
-	// }
-	//  else if len(b) < len(a){
-	// 	fmt.Println(b)
-	// }
-	// else{
-	// 	fmt.Println(" ")
-	// }
-	// if len(a) < len(b) {
-	// 	fmt.Println(a)
-	// } else if len(b) < len(a) {
-	// 	fmt.Println(b)
-	// } else {
-	// 	fmt.Println(" ")
-	// }
-	// return Compare(a, b)
+	var index int
 
-	maxLen := int(math.Max(float64(len(a)), float64(len(b))))
-	shortLen := int(math.Min(float64(len(a)), float64(len(b))))
+	i := 2
 
-	longStr := b
-	shortStr := a
-
-	if maxLen == len(a) {
-		longStr = a
-		shortStr = b
-	}
-	// if len(a) == len(b) {
-	// 	fmt.Println(" ")
-	// }
-
-	var compare, stringSama string
-	var temp int
-
-	for i := range shortStr {
-		for j := range longStr {
-			temp = 0
-			stringSama = " "
-
-			for int(i+temp) < shortLen && int(j+temp) < maxLen && shortStr[i+temp] == longStr[j+temp] {
-				stringSama += string(longStr[j+temp])
-				temp += 1
+	for i >= 2 {
+		isPrime := true
+		sqrtn := int(math.Sqrt(float64(i)))
+		j := 2
+		for j <= sqrtn {
+			if i%j == 0 {
+				isPrime = false
+				j = i
 			}
-
-			if len(stringSama) > len(compare) {
-				compare = stringSama
-			}
+			j++
 		}
+
+		if isPrime {
+			index++
+			// indexToPrime[index] = i
+		}
+
+		if index == number {
+			return i /*, indexToPrime */
+		}
+
+		i++
 	}
-
-	return compare
-
+	return i /*, indexToPrime*/
 }
 
 func main() {
 
-	fmt.Println(Compare("AKA", "AKASHI")) // AKA
+	fmt.Println(primeX(1)) // 2
 
-	fmt.Println(Compare("KANGOORO", "KANG")) // KANG
+	fmt.Println(primeX(5)) // 11
 
-	fmt.Println(Compare("KI", "KIJANG")) // KI
+	fmt.Println(primeX(8)) // 19
 
-	fmt.Println(Compare("KUPU-KUPU", "KUPU")) // KUPU
+	fmt.Println(primeX(9)) // 23
 
-	fmt.Println(Compare("ILALANG", "ILA")) // ILA
+	fmt.Println(primeX(10)) // 29
 
 }
-
-// func main() {
-// 	str1 := "abc"
-// 	str2 := "abd"
-// 	fmt.Println(str1 == str2)
-// }

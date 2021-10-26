@@ -1,87 +1,52 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
-type Student struct {
-	name  []string
-	score []int
-}
+func FindMinAndMax(arr []int) string {
 
-func (s Student) Avarage() float64 {
-	sMap := make(map[string]int)
-	for _, i := range s.score {
-		sMap[""] += i
-	}
+	// your code here
+	var hasil string
+	min, indexMin := arr[0], 0
+	max, indexMax := arr[0], 0
 
-	return float64(sMap[""] / len(s.score))
-}
-
-func (s Student) Min() (min int, name string) {
-	sMap := map[string]int{
-		"": s.score[0],
-	}
-
-	var temp int
-
-	for i, j := range s.score {
-		if sMap[""] > j {
-			sMap[""] = j
-			temp = i
+	for i, j := range arr {
+		if j < min {
+			min = j
+			indexMin = i
+		}
+		if j > max {
+			max = j
+			indexMax = i
 		}
 	}
 
-	return sMap[""], s.name[temp]
-}
-
-func (s Student) Max() (max int, name string) {
-	sMap := map[string]int{
-		"": s.score[0],
-	}
-
-	var temp int
-
-	for i, j := range s.score {
-		if sMap[""] < j {
-			sMap[""] = j
-			temp = i
-		}
-	}
-
-	return sMap[""], s.name[temp]
+	hasil = "min: " + strconv.Itoa(min) + " index: " + strconv.Itoa(indexMin) + " max: " + strconv.Itoa(max) + " index: " + strconv.Itoa(indexMax)
+	return hasil
 }
 
 func main() {
 
-	var a = Student{}
+	fmt.Println(FindMinAndMax([]int{5, 7, 4, -2, -1, 8}))
 
-	for i := 0; i < 6; i++ {
+	// min: -2 index: 3 max: 8 index: 5
 
-		var name string
+	fmt.Println(FindMinAndMax([]int{2, -5, -4, 22, 7, 7}))
 
-		fmt.Print("Input " + string(i) + " Student’s Name : ")
+	// min: -5 index: 1 max: 22 index: 3
 
-		fmt.Scan(&name)
+	fmt.Println(FindMinAndMax([]int{4, 3, 9, 4, -21, 7}))
 
-		a.name = append(a.name, name)
+	// min: -21 index: 4 max: 9 index: 2
 
-		var score int
+	fmt.Println(FindMinAndMax([]int{-1, 5, 6, 4, 2, 18}))
 
-		fmt.Print("Input " + name + " Score : ")
+	// min: -1 index: 0 max: 18 index: 5
 
-		fmt.Scan(&score)
+	fmt.Println(FindMinAndMax([]int{-2, 5, -7, 4, 7, -20}))
 
-		a.score = append(a.score, score)
-
-	}
-
-	fmt.Println("\n\nAvarage Score Students is", a.Avarage())
-
-	scoreMax, nameMax := a.Max()
-
-	fmt.Println("Max Score Students is : "+nameMax+" (", scoreMax, ")")
-
-	scoreMin, nameMin := a.Min()
-
-	fmt.Println("Min Score Students is : "+nameMin+" (", scoreMin, ")")
+	// min: -20 index: 5 max: 7 index: 4
 
 }

@@ -1,42 +1,30 @@
 package main
 
-import (
-	"fmt"
-	"strings"
-)
+import "fmt"
 
-//sumber https://stackoverflow.com/questions/19310700/what-is-a-rune
-
-func caesar(offset int, input string) string {
-	transform := func(r rune) rune {
-		if offset > 26 {
-			offset = offset % 26
-		}
-
-		i := int(r) + offset
-		if i > 'z' {
-			return rune(i - 26)
-		} else if i < 'a' {
-			return rune(i + 26)
-		}
-		return rune(i)
+func fibonacci(number int) int {
+	// fmt.Println(number)
+	// your code here
+	if number == 0 {
+		return 0
+	} else if number == 1 {
+		return 1
+	} else {
+		return fibonacci(number-1) + fibonacci(number-2)
 	}
 
-	result := strings.Map(transform, input)
-
-	return result
 }
 
 func main() {
 
-	fmt.Println(caesar(3, "abc")) // def
+	fmt.Println(fibonacci(0)) // 0
 
-	fmt.Println(caesar(2, "alta")) // cnvc
+	fmt.Println(fibonacci(2)) // 1
 
-	fmt.Println(caesar(10, "alterraacademy")) // kvdobbkkmknowi
+	fmt.Println(fibonacci(9)) // 34
 
-	fmt.Println(caesar(1, "abcdefghijklmnopqrstuvwxyz")) // bcdefghijklmnopqrstuvwxyza
+	fmt.Println(fibonacci(10)) // 55
 
-	fmt.Println(caesar(1000, "abcdefghijklmnopqrstuvwxyz")) // mnopqrstuvwxyzabcdefghijkl
+	fmt.Println(fibonacci(12)) // 144
 
 }

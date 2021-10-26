@@ -1,44 +1,42 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
-func getMinMax(numbers ...*int) (min int, max int) {
-	min = *numbers[0]
-	max = *numbers[0]
-	for _, i := range numbers {
-		if *i < min {
-			min = *i
-		}
-		if *i > max {
-			max = *i
+func sumArray2(arr []int, index1 int, index2 int) int {
+	var sum int
+	for i := index1; i <= index2; i++ {
+		sum += arr[i]
+	}
+	return sum
+}
+
+func MaxSequence(arr []int) int {
+
+	var maxSum int = arr[0]
+	var Array2 int
+
+	for i := range arr {
+		for j := len(arr) - 1; j > i; j-- {
+			Array2 = sumArray2(arr, i, j)
+			if maxSum < Array2 {
+				maxSum = Array2
+			}
 		}
 	}
-	return
+
+	return maxSum
 }
 
 func main() {
 
-	var a1, a2, a3, a4, a5, a6, min, max int
-	fmt.Println("Masukkan 6 angka bebas : \n")
+	fmt.Println(MaxSequence([]int{-2, 1, -3, 4, -1, 2, 1, -5, 4})) // 6
 
-	fmt.Scan(&a1)
+	fmt.Println(MaxSequence([]int{-2, -5, 6, -2, -3, 1, 5, -6})) // 7
 
-	fmt.Scan(&a2)
+	fmt.Println(MaxSequence([]int{-2, -3, 4, -1, -2, 1, 5, -3})) // 7
 
-	fmt.Scan(&a3)
+	fmt.Println(MaxSequence([]int{-2, -5, 6, -2, -3, 1, 6, -6})) // 8
 
-	fmt.Scan(&a4)
-
-	fmt.Scan(&a5)
-
-	fmt.Scan(&a6)
-
-	min, max = getMinMax(&a1, &a2, &a3, &a4, &a5, &a6)
-
-	fmt.Println("Nilai min ", min)
-
-	fmt.Println("Nilai max ", max)
+	fmt.Println(MaxSequence([]int{-2, -5, 6, 2, -3, 1, 6, -6})) // 12
 
 }
