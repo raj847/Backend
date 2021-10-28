@@ -2,51 +2,33 @@ package main
 
 import (
 	"fmt"
-	"math"
 )
 
-func primeX(number int) (prime int) {
-
-	var index int
-
-	i := 2
-
-	for i >= 2 {
-		isPrime := true
-		sqrtn := int(math.Sqrt(float64(i)))
-		j := 2
-		for j <= sqrtn {
-			if i%j == 0 {
-				isPrime = false
-				j = i
+func SimpleEquations(a, b, c int) {
+	// your code here
+	for x := 1; x <= 10000; x++ {
+		for y := 1; y <= 10000-x; y++ {
+			for z := 1; z <= 10000/(x*y); z++ {
+				if x+y+z == a {
+					if x*y*z == b {
+						if x*x+y*y+z*z == c {
+							fmt.Println(x, y, z)
+							return
+						}
+					}
+				}
 			}
-			j++
 		}
-
-		if isPrime {
-			index++
-			// indexToPrime[index] = i
-		}
-
-		if index == number {
-			return i /*, indexToPrime */
-		}
-
-		i++
 	}
-	return i /*, indexToPrime*/
+
+	fmt.Println("no solution")
+	return
 }
 
 func main() {
 
-	fmt.Println(primeX(1)) // 2
+	SimpleEquations(1, 2, 3) // no solution
 
-	fmt.Println(primeX(5)) // 11
-
-	fmt.Println(primeX(8)) // 19
-
-	fmt.Println(primeX(9)) // 23
-
-	fmt.Println(primeX(10)) // 29
+	SimpleEquations(6, 6, 14) // 1 2 3
 
 }

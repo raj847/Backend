@@ -2,41 +2,43 @@ package main
 
 import "fmt"
 
-func sumArray2(arr []int, index1 int, index2 int) int {
-	var sum int
-	for i := index1; i <= index2; i++ {
-		sum += arr[i]
-	}
-	return sum
-}
+func BinarySearch(array []int, x int) {
 
-func MaxSequence(arr []int) int {
+	a, b := 0, len(array)-1
 
-	var maxSum int = arr[0]
-	var Array2 int
-
-	for i := range arr {
-		for j := len(arr) - 1; j > i; j-- {
-			Array2 = sumArray2(arr, i, j)
-			if maxSum < Array2 {
-				maxSum = Array2
+	if x > array[b] || x < array[0] {
+		fmt.Println(-1)
+		return
+	} else if array[a] == x {
+		fmt.Println(a)
+		return
+	} else if array[b] == x {
+		fmt.Println(b)
+		return
+	} else {
+		for a+1 != b {
+			if array[(a+b)/2] == x {
+				fmt.Println((a + b) / 2)
+				return
+			} else if array[(a+b/2)] < x {
+				a = (a + b) / 2
+			} else {
+				b = (a + b) / 2
 			}
 		}
 	}
 
-	return maxSum
+	fmt.Println(-1)
+	return
 }
 
 func main() {
 
-	fmt.Println(MaxSequence([]int{-2, 1, -3, 4, -1, 2, 1, -5, 4})) // 6
+	BinarySearch([]int{1, 1, 3, 5, 5, 6, 7}, 3) // 2
 
-	fmt.Println(MaxSequence([]int{-2, -5, 6, -2, -3, 1, 5, -6})) // 7
+	BinarySearch([]int{1, 2, 3, 5, 6, 8, 10}, 5) // 3
 
-	fmt.Println(MaxSequence([]int{-2, -3, 4, -1, -2, 1, 5, -3})) // 7
+	BinarySearch([]int{12, 15, 15, 19, 24, 31, 53, 59, 60}, 53) // 6
 
-	fmt.Println(MaxSequence([]int{-2, -5, 6, -2, -3, 1, 6, -6})) // 8
-
-	fmt.Println(MaxSequence([]int{-2, -5, 6, 2, -3, 1, 6, -6})) // 12
-
+	BinarySearch([]int{12, 15, 15, 19, 24, 31, 53, 59, 60}, 100) // -1
 }

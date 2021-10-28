@@ -1,72 +1,62 @@
 package main
 
-import (
-	"fmt"
-	"math"
-)
+import "fmt"
 
-func primaSegiEmpat(high, wide, start int) {
-	fmt.Printf("\n\n")
-
-	var sum int
-	// your code here
-	mapBilPrima := mapBilPrima(high, wide, start)
-	j := 1
-	for i := 1; i <= wide; i++ {
-		for j <= i*high {
-			fmt.Printf("%d\t", mapBilPrima[j])
-			j++
-		}
-		fmt.Printf("\n\n\n")
-	}
-
-	for _, v := range mapBilPrima {
-		sum += v
-	}
-
-	println(sum)
-
-	fmt.Printf("\n")
+func hapus(slice []int, s int) {
+	slice = append(slice[:s], slice[s+1:]...)
 }
 
-func mapBilPrima(high, wide, start int) map[int]int {
+func DragonOfLoowater(dragonHead, knightHeight []int) {
 
-	var index int
-	indexBilPrima := make(map[int]int)
-
-	a := start + 1
-
-	for a >= start+1 {
-		isPrime := true
-		sqrtn := int(math.Sqrt(float64(a)))
-		b := 2
-		for b <= sqrtn {
-			if a%b == 0 {
-				isPrime = false
-				b = a
-			}
-			b++
-		}
-
-		if isPrime {
-			index++
-			indexBilPrima[index] = a
-		}
-
-		if index == high*wide {
-			break
-		}
-
-		a++
+	// your code here
+	if len(dragonHead) > len(knightHeight) {
+		fmt.Println("knight fall")
+		return
 	}
 
-	return indexBilPrima
+	var minimumTotalHeight, tempH int
+	var isDie bool
+	var index int
+
+	for _, diameter := range dragonHead {
+		tempH = 0
+		isDie = false
+		for i, height := range knightHeight {
+			if height >= diameter && height < tempH {
+				minimumTotalHeight += height - tempH
+				tempH = height
+				index = i
+				continue
+			} else if isDie {
+				continue
+			} else if height >= diameter {
+				minimumTotalHeight += height
+				tempH = height
+				index = i
+				isDie = true
+			}
+		}
+
+		if !isDie {
+			fmt.Println("knight fall")
+			return
+		}
+
+		hapus(knightHeight, index)
+	}
+
+	fmt.Println(minimumTotalHeight)
+	return
 }
 
 func main() {
 
-	primaSegiEmpat(2, 3, 13)
+	DragonOfLoowater([]int{5, 4}, []int{7, 8, 4}) // 11
 
-	primaSegiEmpat(5, 2, 1)
+	DragonOfLoowater([]int{5, 10}, []int{5}) // knight fall
+
+	DragonOfLoowater([]int{7, 2}, []int{4, 3, 1, 2}) // knight fall
+
+	DragonOfLoowater([]int{7, 2}, []int{2, 1, 8, 5}) // 10
 
 }
