@@ -1,34 +1,30 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
-func SimpleEquations(a, b, c int) {
-	// your code here
-	for x := 1; x <= 10000; x++ {
-		for y := 1; y <= 10000-x; y++ {
-			for z := 1; z <= 10000/(x*y); z++ {
-				if x+y+z == a {
-					if x*y*z == b {
-						if x*x+y*y+z*z == c {
-							fmt.Println(x, y, z)
-							return
-						}
-					}
-				}
-			}
-		}
+func fibo(n int) int {
+	if n <= 1 {
+		return n
 	}
-
-	fmt.Println("no solution")
-	return
+	return fibo(n-1) + fibo(n-2)
 }
 
 func main() {
+	fmt.Println(fibo(0)) // 0
 
-	SimpleEquations(1, 2, 3) // no solution
+	fmt.Println(fibo(1)) // 1
 
-	SimpleEquations(6, 6, 14) // 1 2 3
+	fmt.Println(fibo(2)) // 1
 
+	fmt.Println(fibo(3)) // 2
+
+	fmt.Println(fibo(5)) // 5
+
+	fmt.Println(fibo(6)) // 8
+
+	fmt.Println(fibo(7)) // 13
+
+	fmt.Println(fibo(9)) // 13
+
+	fmt.Println(fibo(10)) // 55
 }

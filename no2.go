@@ -2,35 +2,36 @@ package main
 
 import "fmt"
 
-func moneyCoins(money int) []int {
-
-	pecahanUang := []int{1, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000}
-	hasil := []int{}
-	// your code here
-	// fmt.Println(len(pecahanUang))
-	for i := len(pecahanUang) - 1; i >= 0; i-- {
-		// fmt.Println(len(pecahanUang) - 1)
-		for pecahanUang[i] <= money {
-			hasil = append(hasil, pecahanUang[i])
-			money -= pecahanUang[i]
-			if money == 0 {
-				return hasil
-			}
-		}
+func fibo(n int) int {
+	// fmt.Println("ini n :", n)
+	f := make([]int, n+1, n+2)
+	if n < 2 {
+		f = f[0:2]
 	}
-	return hasil
+	f[0] = 0
+	f[1] = 1
+	for i := 2; i <= n; i++ {
+		f[i] = f[i-1] + f[i-2]
+	}
+	return f[n]
 }
 
 func main() {
+	fmt.Println(fibo(0)) // 0
 
-	fmt.Println(moneyCoins(123)) // [100 20 1 1 1]
+	fmt.Println(fibo(1)) // 1
 
-	fmt.Println(moneyCoins(432)) // [200 200 20 10 1 1]
+	fmt.Println(fibo(2)) // 1
 
-	fmt.Println(moneyCoins(543)) // [500, 20, 20, 1, 1, 1]
+	fmt.Println(fibo(3)) // 2
 
-	fmt.Println(moneyCoins(7752)) // [5000, 2000, 500, 200, 50, 1, 1]
+	fmt.Println(fibo(5)) // 5
 
-	fmt.Println(moneyCoins(15321)) // [10000 5000 200 100 20 1]
+	fmt.Println(fibo(6)) // 8
 
+	fmt.Println(fibo(7)) // 13
+
+	fmt.Println(fibo(9)) // 34
+
+	fmt.Println(fibo(10)) // 55
 }

@@ -1,62 +1,21 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
-func hapus(slice []int, s int) {
-	slice = append(slice[:s], slice[s+1:]...)
-}
-
-func DragonOfLoowater(dragonHead, knightHeight []int) {
-
-	// your code here
-	if len(dragonHead) > len(knightHeight) {
-		fmt.Println("knight fall")
-		return
+func Frog(jumps []int) int {
+	var lompat = make(map[int]int)
+	lompat[1] = int(math.Abs(float64(jumps[1] - jumps[0])))
+	for i := 2; i < len(jumps); i++ {
+		lompat[i] = int(math.Min(math.Abs(float64(jumps[i]-jumps[i-1]))+float64(lompat[i-1]), math.Abs(float64(jumps[i]-jumps[i-2]))+float64(lompat[i-2])))
 	}
-
-	var minimumTotalHeight, tempH int
-	var isDie bool
-	var index int
-
-	for _, diameter := range dragonHead {
-		tempH = 0
-		isDie = false
-		for i, height := range knightHeight {
-			if height >= diameter && height < tempH {
-				minimumTotalHeight += height - tempH
-				tempH = height
-				index = i
-				continue
-			} else if isDie {
-				continue
-			} else if height >= diameter {
-				minimumTotalHeight += height
-				tempH = height
-				index = i
-				isDie = true
-			}
-		}
-
-		if !isDie {
-			fmt.Println("knight fall")
-			return
-		}
-
-		hapus(knightHeight, index)
-	}
-
-	fmt.Println(minimumTotalHeight)
-	return
+	return lompat[len(jumps)-1]
 }
 
 func main() {
+	fmt.Println(Frog([]int{10, 30, 40, 20})) // 30
 
-	DragonOfLoowater([]int{5, 4}, []int{7, 8, 4}) // 11
-
-	DragonOfLoowater([]int{5, 10}, []int{5}) // knight fall
-
-	DragonOfLoowater([]int{7, 2}, []int{4, 3, 1, 2}) // knight fall
-
-	DragonOfLoowater([]int{7, 2}, []int{2, 1, 8, 5}) // 10
-
+	fmt.Println(Frog([]int{30, 10, 60, 10, 60, 50})) // 40
 }
